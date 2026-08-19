@@ -16,7 +16,15 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files (HTML, CSS, images)
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/sitemap.xml', (req, res) => {
-  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+  res.header('Content-Type', 'application/xml');
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://kumaon-travels.vercel.app/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>1.0</priority>
+  </url>
+</urlset>`);
 });
 
 // Route root URL to index.html
