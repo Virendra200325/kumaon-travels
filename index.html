@@ -496,7 +496,7 @@
 
   try {
     // 1. Send data to backend API
-    await fetch('http://localhost:5000/api/bookings', {
+    await fetch('https://kumaon-travels-api.onrender.com', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
