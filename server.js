@@ -11,6 +11,15 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const path = require('path');
+
+// Serve static files (HTML, CSS, images)
+app.use(express.static(path.join(__dirname)));
+
+// Route root URL to index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // Database Connection Pool
 const db = mysql.createPool({
