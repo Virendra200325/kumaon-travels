@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kumaon Travels | Taxi Service Ranikhet & Majkhali</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    .hero-bg {
+      background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), 
+                  url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Top Sticky Announcement / Contact Bar -->
+  <div class="bg-amber-500 text-slate-900 text-sm font-semibold py-2 px-4">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center">
+      <span><i class="fa-solid fa-location-dot mr-1"></i> Based in Majkhali & Ranikhet | Serving Pan-India</span>
+      <div class="space-x-4">
+        <a href="tel:+919012429456" class="hover:underline"><i class="fa-solid fa-phone mr-1"></i> +91 90124 29456</a>
+        <a href="https://wa.me/919012429456" class="hover:underline text-slate-950"><i class="fa-brands fa-whatsapp mr-1"></i> 24/7 WhatsApp Booking</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fa-solid fa-taxi text-amber-500 text-2xl"></i>
+        <div>
+          <span class="text-2xl font-bold text-slate-900 tracking-wide">Kumaon Travels</span>
+          <p class="text-xs text-gray-500 -mt-1 font-medium">Taxi & Tour Service • Ranikhet</p>
+        </div>
+      </div>
+      <nav class="hidden md:flex space-x-8 font-medium text-gray-600">
+        <a href="#services" class="hover:text-amber-500 transition">Services</a>
+        <a href="#packages" class="hover:text-amber-500 transition">Char Dham & Tours</a>
+        <a href="#wedding" class="hover:text-amber-500 transition">Marriage Bookings</a>
+        <a href="#fleet" class="hover:text-amber-500 transition">Our Fleet</a>
+        <a href="#contact" class="hover:text-amber-500 transition">Contact</a>
+      </nav>
+      <a href="tel:+919012429456" class="bg-slate-900 hover:bg-amber-500 hover:text-slate-900 text-white px-5 py-2 rounded-lg font-semibold transition duration-200">
+        <i class="fa-solid fa-phone mr-1"></i> Call Now
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Booking Card -->
+  <section class="hero-bg py-20 px-4 text-white">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-7 space-y-6">
+        <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs px-3 py-1.5 rounded-full font-bold uppercase tracking-wider">
+          Trusted Mountain Drivers
+        </span>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+          Safe & Reliable Taxi Service from <span class="text-amber-400">Ranikhet & Majkhali</span> to Anywhere in India
+        </h1>
+        <p class="text-gray-300 text-lg">
+          Specialists in Char Dham Yatra, Outstation Drops (Delhi, Kathgodam, Dehradun), Wedding Fleets, and Scenic Kumaon Sightseeing.
+        </p>
+        <div class="flex flex-wrap gap-4 pt-2">
+          <div class="flex items-center space-x-2 text-sm text-gray-200">
+            <i class="fa-solid fa-circle-check text-amber-400"></i>
+            <span>No Hidden Charges</span>
+          </div>
+          <div class="flex items-center space-x-2 text-sm text-gray-200">
+            <i class="fa-solid fa-circle-check text-amber-400"></i>
+            <span>Experienced Hill Drivers</span>
+          </div>
+          <div class="flex items-center space-x-2 text-sm text-gray-200">
+            <i class="fa-solid fa-circle-check text-amber-400"></i>
+            <span>24x7 Pickup Guarantee</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Inquiry / Booking Card -->
+      <div class="lg:col-span-5 bg-white text-gray-900 p-6 md:p-8 rounded-2xl shadow-2xl">
+        <h3 class="text-2xl font-bold text-slate-900 mb-1">Book Your Cab</h3>
+        <p class="text-sm text-gray-500 mb-6">Fill in details for instant quote & booking</p>
+        
+        <form id="bookingForm" onsubmit="handleBooking(event)" class="space-y-4">
+          <!-- Name & Phone Fields -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase">Your Name</label>
+              <input id="name" type="text" placeholder="e.g. Rahul Sharma" required
+                     class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase">Phone Number</label>
+              <input id="phone" type="tel" placeholder="e.g. 9876543210" required
+                     class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase">Pickup Location</label>
+            <input id="pickup" type="text" placeholder="e.g. Majkhali / Ranikhet" value="Majkhali, Ranikhet" required
+                   class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase">Drop Destination / Tour</label>
+            <input id="drop" type="text" placeholder="e.g. Kathgodam / Delhi / Char Dham" required
+                   class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase">Trip Type</label>
+              <select id="tripType" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                <option value="One-Way Outstation">One-Way Outstation</option>
+                <option value="Round-Trip">Round-Trip</option>
+                <option value="Char Dham Yatra">Char Dham Yatra</option>
+                <option value="Wedding Booking">Wedding Booking</option>
+                <option value="Local Sightseeing">Local Sightseeing</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase">Vehicle Choice</label>
+              <select id="vehicle" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                <option value="Sedan (Dzire / Aura)">Sedan (Dzire / Aura)</option>
+                <option value="SUV (Innova Crysta / Ertiga)">SUV (Innova Crysta / Ertiga)</option>
+                <option value="Hatchback (Alto / WagonR)">Hatchback (Alto / WagonR)</option>
+                <option value="Tempo Traveller">Tempo Traveller</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase">Travel Date</label>
+            <input id="travelDate" type="date" required
+                   class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          </div>
+
+          <button id="submitBtn" type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg shadow-md transition duration-200 flex items-center justify-center space-x-2">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>Get Quote on WhatsApp</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Core Services -->
+  <section id="services" class="py-20 px-4 max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl font-extrabold text-slate-900">Our Premier Travel Services</h2>
+      <p class="text-gray-600 mt-2">Whether it's an urgent airport run, a lifelong pilgrimage, or a grand wedding procession, we have you covered.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
+        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-xl mb-4">
+          <i class="fa-solid fa-map-location-dot"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">All-India Outstation</h3>
+        <p class="text-gray-600 text-sm">Direct one-way & round-trip taxi drops from Majkhali/Ranikhet to Delhi NCR, Kathgodam, Dehradun, Lucknow, and all Indian states.</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
+        <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-xl mb-4">
+          <i class="fa-solid fa-om"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">Char Dham Yatra</h3>
+        <p class="text-gray-600 text-sm">Specialized pilgrimage packages for Kedarnath, Badrinath, Gangotri, and Yamunotri with expert mountain-certified drivers.</p>
+      </div>
+
+      <div id="wedding" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
+        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-xl mb-4">
+          <i class="fa-solid fa-gem"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">Marriage & Events</h3>
+        <p class="text-gray-600 text-sm">Decorated luxury bridal cars, multiple guest SUVs, and Tempo Travellers for Baraat movements across Kumaon and North India.</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
+        <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-xl flex items-center justify-center text-xl mb-4">
+          <i class="fa-solid fa-mountain-sun"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">Local Sightseeing</h3>
+        <p class="text-gray-600 text-sm">Full-day and custom packages for Ranikhet Golf Course, Chaubatia Orchards, Jhula Devi, Kausani, Almora, and Nainital.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Char Dham & Special Packages Banner -->
+  <section id="packages" class="bg-slate-900 py-16 px-4 text-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
+        <div>
+          <span class="text-amber-400 font-bold text-sm uppercase tracking-wider">Devbhoomi Pilgrimages</span>
+          <h2 class="text-3xl font-extrabold mt-1">Char Dham & Himalayan Tour Specials</h2>
+        </div>
+        <a href="https://wa.me/919012429456?text=Hello%20Kumaon%20Travels,%20I%20want%20details%20for%20Char%20Dham%20packages."
+           class="mt-4 md:mt-0 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold px-6 py-2.5 rounded-lg transition">
+          Inquire Special Packages
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+          <h4 class="text-xl font-bold text-amber-400">Complete Char Dham Yatra</h4>
+          <p class="text-sm text-gray-400 mt-1">10 to 12 Days Custom Package</p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-300">
+            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Yamunotri • Gangotri • Kedarnath • Badrinath</li>
+            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Dedicated SUV / Innova with Hill Driver</li>
+            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Flexible pickups from Ranikhet, Kathgodam, or Haridwar</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+          <h4 class="text-xl font-bold text-amber-400">Do Dham Yatra</h4>
+          <p class="text-sm text-gray-400 mt-1">5 to 7 Days Fast Track</p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-300">
+            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Kedarnath & Badrinath Direct Connection</li>
+            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Priority hill routing and permit assistance</li>
+            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Reliable 24/7 roadside backup</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+          <h4 class="text-xl font-bold text-amber-400">Kumaon Heritage Circuit</h4>
+          <p class="text-sm text-gray-400 mt-1">3 to 5 Days Leisure Tour</p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-300">
+            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Ranikhet • Kausani • Binsar • Almora • Nainital</li>
+            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Himalayan panoramic viewpoint stops</li>
+            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Relaxed sightseeing for families</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fleet Showcase -->
+<!-- Fleet Showcase -->
+  <section id="fleet" class="py-20 px-4 max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Well-Maintained Vehicles</span>
+      <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Our Reliable Fleet</h2>
+      <p class="text-gray-600 mt-2">Clean, regularly sanitized, and specially equipped for steep Himalayan roads and long outstation journeys.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Vehicle 1: Sedan -->
+      <div class="bg-white border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
+        <div class="relative h-48 w-full overflow-hidden bg-gray-100">
+          <img src="photo5.jpeg" 
+               alt="Sedan Dzire Aura" 
+               class="w-full h-full object-cover hover:scale-105 transition duration-500">
+          <span class="absolute top-3 right-3 bg-slate-900/80 backdrop-blur text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+            Economy & Highway
+          </span>
+        </div>
+        
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-xl font-bold text-slate-900">Sedans (Dzire / Aura)</h4>
+              <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">AC / Fastag</span>
+            </div>
+            <p class="text-xs text-gray-500">Best for railway transfers & couple getaways</p>
+
+            <div class="grid grid-cols-2 gap-2 my-4 text-xs font-medium text-gray-600 bg-gray-50 p-3 rounded-lg border border-gray-100">
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-users text-amber-500"></i>
+                <span>4 Passengers</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-suitcase text-amber-500"></i>
+                <span>2-3 Bags Boot</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-gas-pump text-amber-500"></i>
+                <span>High Mileage</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-snowflake text-amber-500"></i>
+                <span>Chilled AC</span>
+              </div>
+            </div>
+
+            <p class="text-sm text-gray-600">Ideal for Kathgodam railway drops, Pantnagar airport, Delhi outstation, and comfortable city runs.</p>
+          </div>
+
+          <button onclick="selectFleet('Sedan (Dzire / Aura)')" 
+                  class="mt-6 w-full py-2.5 px-4 bg-slate-900 hover:bg-amber-500 hover:text-slate-900 text-white text-sm font-semibold rounded-lg transition duration-200 text-center">
+            Select Sedan
+          </button>
+        </div>
+      </div>
+
+      <!-- Vehicle 2: SUV (Featured) -->
+      <div class="bg-white border-2 border-amber-500 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 flex flex-col relative">
+        <span class="absolute top-3 left-3 bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider z-10 shadow">
+          Most Popular in Hills
+        </span>
+        
+        <div class="relative h-48 w-full overflow-hidden bg-gray-100">
+          <img src="photo2.jpeg" 
+               alt="SUV Innova Crysta Ertiga" 
+               class="w-full h-full object-cover hover:scale-105 transition duration-500">
+        </div>
+        
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-xl font-bold text-slate-900">SUVs (Innova / Ertiga / Bolero)</h4>
+              <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">Mountain Spec</span>
+            </div>
+            <p class="text-xs text-gray-500">Top recommendation for Char Dham & family tours</p>
+
+            <div class="grid grid-cols-2 gap-2 my-4 text-xs font-medium text-gray-600 bg-gray-50 p-3 rounded-lg border border-gray-100">
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-users text-amber-500"></i>
+                <span>6 - 7 Passengers</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-suitcase text-amber-500"></i>
+                <span>Carrier + Boot</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-mountain text-amber-500"></i>
+                <span>Steep Hill Torque</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-couch text-amber-500"></i>
+                <span>Reclining Seats</span>
+              </div>
+            </div>
+
+            <p class="text-sm text-gray-600">The absolute standard for Kedarnath, Badrinath, high-altitude passes, and family luggage convenience.</p>
+          </div>
+
+          <button onclick="selectFleet('SUV (Innova Crysta / Ertiga)')" 
+                  class="mt-6 w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-600 text-slate-900 text-sm font-bold rounded-lg transition duration-200 text-center shadow-md">
+            Select SUV
+          </button>
+        </div>
+      </div>
+
+      <!-- Vehicle 3: Tempo Traveller -->
+      <div class="bg-white border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
+        <div class="relative h-48 w-full overflow-hidden bg-gray-100">
+          <img src="photo6.jpeg" 
+               alt="Tempo Traveller Bus" 
+               class="w-full h-full object-cover hover:scale-105 transition duration-500">
+          <span class="absolute top-3 right-3 bg-slate-900/80 backdrop-blur text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+            Group Travel & Weddings
+          </span>
+        </div>
+        
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-xl font-bold text-slate-900">Tempo Travellers</h4>
+              <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">12-26 Seater</span>
+            </div>
+            <p class="text-xs text-gray-500">Designed for Baraat events & large groups</p>
+
+            <div class="grid grid-cols-2 gap-2 my-4 text-xs font-medium text-gray-600 bg-gray-50 p-3 rounded-lg border border-gray-100">
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-users text-amber-500"></i>
+                <span>12 - 26 Seats</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-luggage-cart text-amber-500"></i>
+                <span>Rear Storage</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-music text-amber-500"></i>
+                <span>Music System</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-bolt text-amber-500"></i>
+                <span>Charging Ports</span>
+              </div>
+            </div>
+
+            <p class="text-sm text-gray-600">Ideal for marriage party transportation (Baraat), corporate group outings, and extended pilgrimage groups.</p>
+          </div>
+
+          <button onclick="selectFleet('Tempo Traveller')" 
+                  class="mt-6 w-full py-2.5 px-4 bg-slate-900 hover:bg-amber-500 hover:text-slate-900 text-white text-sm font-semibold rounded-lg transition duration-200 text-center">
+            Select Tempo Traveller
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Contact & Location Footer -->
+  <footer id="contact" class="bg-slate-950 text-gray-300 pt-16 pb-8 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-slate-800">
+      
+      <div>
+        <div class="flex items-center space-x-2 text-white font-bold text-2xl mb-4">
+          <i class="fa-solid fa-taxi text-amber-500"></i>
+          <span>Kumaon Travels</span>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          Your trusted travel and taxi partner in Uttarakhand. Based in Majkhali & Ranikhet, providing seamless, safe travel solutions across India.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-lg mb-4">Our Head Office</h4>
+        <p class="text-sm text-gray-400"><i class="fa-solid fa-location-dot text-amber-400 mr-2"></i> Main Market, Majkhali, Ranikhet, Dist. Almora, Uttarakhand - 263652</p>
+        <p class="text-sm text-gray-400 mt-3"><i class="fa-solid fa-phone text-amber-400 mr-2"></i> +91 90124 29456 || +91 94111 92061</p>
+        <p class="text-sm text-gray-400 mt-2"><i class="fa-solid fa-envelope text-amber-400 mr-2"></i> bookings@kumaontravels.com</p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-lg mb-4">Quick Links</h4>
+        <ul class="text-sm space-y-2">
+          <li><a href="#services" class="hover:text-amber-400">All India Outstation Taxi</a></li>
+          <li><a href="#packages" class="hover:text-amber-400">Char Dham Yatra Packages</a></li>
+          <li><a href="#wedding" class="hover:text-amber-400">Marriage / Event Fleets</a></li>
+          <li><a href="#fleet" class="hover:text-amber-400">Vehicle Types & Capacity</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+      <p>© 2026 Kumaon Travels. All rights reserved.</p>
+      <p class="mt-2 md:mt-0">Designed for Ranikhet & Majkhali Taxi Operations</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="https://wa.me/919012429456?text=Hello%20Kumaon%20Travels,%20I%20need%20a%20taxi%20booking."
+     class="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-full shadow-2xl z-50 flex items-center justify-center text-2xl transition transform hover:scale-110"
+     title="Chat with us on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Frontend Logic & API Integration Script -->
+  <script>
+    // Set default travel date to tomorrow
+    document.addEventListener('DOMContentLoaded', () => {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      document.getElementById('travelDate').value = tomorrow.toISOString().split('T')[0];
+    });
+
+    async function handleBooking(e) {
+  e.preventDefault();
+  
+  const submitBtn = document.getElementById('submitBtn');
+  const originalText = submitBtn.innerHTML;
+  submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
+  submitBtn.disabled = true;
+
+  const payload = {
+    name: document.getElementById('name').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    pickup: document.getElementById('pickup').value.trim(),
+    drop: document.getElementById('drop').value.trim(),
+    tripType: document.getElementById('tripType').value,
+    vehicle: document.getElementById('vehicle').value,
+    travelDate: document.getElementById('travelDate').value
+  };
+
+  const primaryPhone = "919012429456";
+
+  const rawMessage = 
+    `🚕 *NEW BOOKING ENQUIRY* 🚕\n` +
+    `*Kumaon Travels — Ranikhet*\n` +
+    `━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `👤 *Customer Name:* ${payload.name}\n` +
+    `📞 *Contact Number:* ${payload.phone}\n\n` +
+    `📍 *Pickup Point:* ${payload.pickup}\n` +
+    `🏁 *Drop Destination:* ${payload.drop}\n` +
+    `🔄 *Trip Type:* ${payload.tripType}\n` +
+    `🚙 *Selected Vehicle:* ${payload.vehicle}\n` +
+    `📅 *Travel Date:* ${payload.travelDate}\n\n` +
+    `━━━━━━━━━━━━━━━━━━━━\n` +
+    `💬 _Please confirm availability and share the best quotation._`;
+
+  const encodedMsg = encodeURIComponent(rawMessage);
+
+  try {
+    // 1. Send data to backend API
+    await fetch('http://localhost:5000/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch (error) {
+    console.warn("Backend server offline, opening WhatsApp directly.");
+  } finally {
+    // 2. Open WhatsApp with the clean formatted message
+    window.open(`https://wa.me/${primaryPhone}?text=${encodedMsg}`, '_blank');
+    submitBtn.innerHTML = originalText;
+    submitBtn.disabled = false;
+  }
+}
+  </script>
+
+</body>
+</html>
