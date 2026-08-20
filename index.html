@@ -502,37 +502,59 @@
 
   const primaryPhone = "919012429456";
 
-  const rawMessage = 
-  `🚕 *NEW BOOKING ENQUIRY* 🚕\n` +
-  `*Kumaon Travels — Ranikhet*\n` +
-  `━━━━━━━━━━━━━━━━━━━━\n\n` +
-  `👤 *Customer Name:* ${payload.name}\n` +
-  `📞 *Contact Number:* ${payload.phone}\n\n` +
-  `📍 *Pickup Point:* ${payload.pickup}\n` +
-  `🏁 *Drop Destination:* ${payload.drop}\n` +
-  `🔄 *Trip Type:* ${payload.tripType}\n` +
-  `🚙 *Selected Vehicle:* ${payload.vehicle}\n` +
-  `📅 *Travel Date:* ${payload.travelDate}\n\n` +
-  `━━━━━━━━━━━━━━━━━━━━\n` +
-  `💬 _Please confirm availability and share the best quotation._`;
+  async function submitBooking(payload) {
+  const primaryPhone = "917251822003"; // Your verified WhatsApp contact number
 
-const encodedMsg = encodeURIComponent(rawMessage);
-const whatsappUrl = `https://wa.me/${primaryPhone}?text=${encodedMsg}`;
+  // Disable button and show loading state
+  if (typeof submitBtn !== "undefined" && submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Connecting to WhatsApp...";
+  }
 
-// 1. Send data in background (fire-and-forget so WhatsApp opens without popup blocking)
-fetch('https://kumaon-travels-api.onrender.com/api/bookings', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(payload)
-}).catch((err) => console.warn("Backend offline, continuing to WhatsApp:", err));
+  // 1. Prepare formatted message
+  const rawMessage =
+    `🚕 *NEW BOOKING ENQUIRY* 🚕\n` +
+    `*Kumaon Travels — Ranikhet*\n` +
+    `━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `👤 *Customer Name:* ${payload.name}\n` +
+    `📞 *Contact Number:* ${payload.phone}\n\n` +
+    `📍 *Pickup Point:* ${payload.pickup}\n` +
+    `🏁 *Drop Destination:* ${payload.drop}\n` +
+    `🔄 *Trip Type:* ${payload.tripType}\n` +
+    `🚙 *Selected Vehicle:* ${payload.vehicle}\n` +
+    `📅 *Travel Date:* ${payload.travelDate}\n\n` +
+    `━━━━━━━━━━━━━━━━━━━━\n` +
+    `💬 _Please confirm availability and share the best quotation._`;
 
-// 2. Open WhatsApp immediately on user click
-window.open(whatsappUrl, '_blank');
+  const encodedMsg = encodeURIComponent(rawMessage);
+  const whatsappUrl = `https://wa.me/${primaryPhone}?text=${encodedMsg}`;
 
-// 3. Reset button UI
-if (submitBtn) {
-  submitBtn.innerHTML = originalText;
-  submitBtn.disabled = false;
+  // 2. Attempt backend logging with a 2.5s timeout (prevents Render cold-start hangs)
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2500);
+
+    await fetch('https://kumaon-travels-api.onrender.com/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+      keepalive: true
+    });
+
+    clearTimeout(timeoutId);
+  } catch (error) {
+    console.warn("Backend offline or slow, forwarding to WhatsApp directly.");
+  } finally {
+    // 3. Reset button state
+    if (typeof submitBtn !== "undefined" && submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerText = typeof originalText !== "undefined" ? originalText : "Book Now";
+    }
+
+    // 4. Redirect seamlessly on both Mobile and Desktop without getting blocked
+    window.location.href = whatsappUrl;
+  }
 }
 }
   </script>
