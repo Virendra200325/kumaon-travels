@@ -257,7 +257,6 @@
   </section>
 
   <!-- Fleet Showcase -->
-<!-- Fleet Showcase -->
   <section id="fleet" class="py-20 px-4 max-w-7xl mx-auto">
     <div class="text-center max-w-2xl mx-auto mb-16">
       <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Well-Maintained Vehicles</span>
@@ -474,78 +473,66 @@
   </a>
 
   <!-- Frontend Logic & API Integration Script -->
-  <script>
-    // Set default travel date to tomorrow
-    document.addEventListener('DOMContentLoaded', () => {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      document.getElementById('travelDate').value = tomorrow.toISOString().split('T')[0];
-    });
+ <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dateInput = document.getElementById('travelDate');
+    if (dateInput) {
+      dateInput.value = tomorrow.toISOString().split('T')[0];
+    }
+  });
 
-    async function handleBooking(e) {
-  e.preventDefault();
-  
-  const submitBtn = document.getElementById('submitBtn');
-  const originalText = submitBtn.innerHTML;
-  submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
-  submitBtn.disabled = true;
+  function handleBooking(e) {
+    e.preventDefault();
 
-  const payload = {
-    name: document.getElementById('name').value.trim(),
-    phone: document.getElementById('phone').value.trim(),
-    pickup: document.getElementById('pickup').value.trim(),
-    drop: document.getElementById('drop').value.trim(),
-    tripType: document.getElementById('tripType').value,
-    vehicle: document.getElementById('vehicle').value,
-    travelDate: document.getElementById('travelDate').value
-  };
+    const submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) {
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Connecting to WhatsApp...';
+      submitBtn.disabled = true;
+    }
 
-  const primaryPhone = "919012429456";
+    const payload = {
+      name: document.getElementById('name')?.value.trim() || 'Customer',
+      phone: document.getElementById('phone')?.value.trim() || '',
+      pickup: document.getElementById('pickup')?.value.trim() || '',
+      drop: document.getElementById('drop')?.value.trim() || '',
+      tripType: document.getElementById('tripType')?.value || 'One-Way Outstation',
+      vehicle: document.getElementById('vehicle')?.value || 'Sedan (Dzire / Aura)',
+      travelDate: document.getElementById('travelDate')?.value || ''
+    };
 
-  async function submitBooking(payload) {
-  const primaryPhone = "917251822003"; // Your verified WhatsApp contact number
+    const primaryPhone = "919012429456";
 
-  // Disable button and show loading state
-  if (typeof submitBtn !== "undefined" && submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Connecting to WhatsApp...";
+    const rawMessage =
+      `🚕 *NEW BOOKING ENQUIRY* 🚕\n` +
+      `*Kumaon Travels — Ranikhet*\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n\n` +
+      `👤 *Customer Name:* ${payload.name}\n` +
+      `📞 *Contact Number:* ${payload.phone}\n\n` +
+      `📍 *Pickup Point:* ${payload.pickup}\n` +
+      `🏁 *Drop Destination:* ${payload.drop}\n` +
+      `🔄 *Trip Type:* ${payload.tripType}\n` +
+      `🚙 *Selected Vehicle:* ${payload.vehicle}\n` +
+      `📅 *Travel Date:* ${payload.travelDate}\n\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `💬 _Please confirm availability and share the best quotation._`;
+
+    const encodedMsg = encodeURIComponent(rawMessage);
+    const whatsappUrl = `https://wa.me/${primaryPhone}?text=${encodedMsg}`;
+
+    // 2. Fire-and-forget backend logging in background (no delay)
+    fetch('https://kumaon-travels-api.onrender.com/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      keepalive: true
+    }).catch((err) => console.warn("Backend offline or sleeping:", err));
+
+    // 3. Immediately redirect user to WhatsApp
+    window.location.href = whatsappUrl;
   }
-
-  function submitBooking(payload) {
-  const primaryPhone = "917251822003";
-
-  // 1. Prepare message and WhatsApp URL
-  const rawMessage =
-    `🚕 *NEW BOOKING ENQUIRY* 🚕\n` +
-    `*Kumaon Travels — Ranikhet*\n` +
-    `━━━━━━━━━━━━━━━━━━━━\n\n` +
-    `👤 *Customer Name:* ${payload.name}\n` +
-    `📞 *Contact Number:* ${payload.phone}\n\n` +
-    `📍 *Pickup Point:* ${payload.pickup}\n` +
-    `🏁 *Drop Destination:* ${payload.drop}\n` +
-    `🔄 *Trip Type:* ${payload.tripType}\n` +
-    `🚙 *Selected Vehicle:* ${payload.vehicle}\n` +
-    `📅 *Travel Date:* ${payload.travelDate}\n\n` +
-    `━━━━━━━━━━━━━━━━━━━━\n` +
-    `💬 _Please confirm availability and share the best quotation._`;
-
-  const encodedMsg = encodeURIComponent(rawMessage);
-  const whatsappUrl = `https://wa.me/${primaryPhone}?text=${encodedMsg}`;
-
-  // 2. Fire-and-forget backend logging in the background (does NOT block the user)
-  fetch('https://kumaon-travels-api.onrender.com/api/bookings', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-    keepalive: true // Guarantees the request completes even after redirecting
-  }).catch((err) => console.warn("Backend logging error:", err));
-
-  // 3. Open WhatsApp immediately without waiting for Render
-  window.location.href = whatsappUrl;
-}
-}
-}
-  </script>
+</script>
 
 </body>
 </html>
