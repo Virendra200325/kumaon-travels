@@ -511,7 +511,10 @@
     submitBtn.innerText = "Connecting to WhatsApp...";
   }
 
-  // 1. Prepare formatted message
+  function submitBooking(payload) {
+  const primaryPhone = "917251822003";
+
+  // 1. Prepare message and WhatsApp URL
   const rawMessage =
     `🚕 *NEW BOOKING ENQUIRY* 🚕\n` +
     `*Kumaon Travels — Ranikhet*\n` +
@@ -529,32 +532,17 @@
   const encodedMsg = encodeURIComponent(rawMessage);
   const whatsappUrl = `https://wa.me/${primaryPhone}?text=${encodedMsg}`;
 
-  // 2. Attempt backend logging with a 2.5s timeout (prevents Render cold-start hangs)
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2500);
+  // 2. Fire-and-forget backend logging in the background (does NOT block the user)
+  fetch('https://kumaon-travels-api.onrender.com/api/bookings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+    keepalive: true // Guarantees the request completes even after redirecting
+  }).catch((err) => console.warn("Backend logging error:", err));
 
-    await fetch('https://kumaon-travels-api.onrender.com/api/bookings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-      keepalive: true
-    });
-
-    clearTimeout(timeoutId);
-  } catch (error) {
-    console.warn("Backend offline or slow, forwarding to WhatsApp directly.");
-  } finally {
-    // 3. Reset button state
-    if (typeof submitBtn !== "undefined" && submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.innerText = typeof originalText !== "undefined" ? originalText : "Book Now";
-    }
-
-    // 4. Redirect seamlessly on both Mobile and Desktop without getting blocked
-    window.location.href = whatsappUrl;
-  }
+  // 3. Open WhatsApp immediately without waiting for Render
+  window.location.href = whatsappUrl;
+}
 }
 }
   </script>
