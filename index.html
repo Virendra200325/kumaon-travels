@@ -503,36 +503,37 @@
   const primaryPhone = "919012429456";
 
   const rawMessage = 
-    `🚕 *NEW BOOKING ENQUIRY* 🚕\n` +
-    `*Kumaon Travels — Ranikhet*\n` +
-    `━━━━━━━━━━━━━━━━━━━━\n\n` +
-    `👤 *Customer Name:* ${payload.name}\n` +
-    `📞 *Contact Number:* ${payload.phone}\n\n` +
-    `📍 *Pickup Point:* ${payload.pickup}\n` +
-    `🏁 *Drop Destination:* ${payload.drop}\n` +
-    `🔄 *Trip Type:* ${payload.tripType}\n` +
-    `🚙 *Selected Vehicle:* ${payload.vehicle}\n` +
-    `📅 *Travel Date:* ${payload.travelDate}\n\n` +
-    `━━━━━━━━━━━━━━━━━━━━\n` +
-    `💬 _Please confirm availability and share the best quotation._`;
+  `🚕 *NEW BOOKING ENQUIRY* 🚕\n` +
+  `*Kumaon Travels — Ranikhet*\n` +
+  `━━━━━━━━━━━━━━━━━━━━\n\n` +
+  `👤 *Customer Name:* ${payload.name}\n` +
+  `📞 *Contact Number:* ${payload.phone}\n\n` +
+  `📍 *Pickup Point:* ${payload.pickup}\n` +
+  `🏁 *Drop Destination:* ${payload.drop}\n` +
+  `🔄 *Trip Type:* ${payload.tripType}\n` +
+  `🚙 *Selected Vehicle:* ${payload.vehicle}\n` +
+  `📅 *Travel Date:* ${payload.travelDate}\n\n` +
+  `━━━━━━━━━━━━━━━━━━━━\n` +
+  `💬 _Please confirm availability and share the best quotation._`;
 
-  const encodedMsg = encodeURIComponent(rawMessage);
+const encodedMsg = encodeURIComponent(rawMessage);
+const whatsappUrl = `https://wa.me/${primaryPhone}?text=${encodedMsg}`;
 
-  try {
-    // 1. Send data to backend API
-    await fetch('https://kumaon-travels-api.onrender.com', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-  } catch (error) {
-    console.warn("Backend server offline, opening WhatsApp directly.");
-  } finally {
-    // 2. Open WhatsApp with the clean formatted message
-    window.open(`https://wa.me/${primaryPhone}?text=${encodedMsg}`, '_blank');
-    submitBtn.innerHTML = originalText;
-    submitBtn.disabled = false;
-  }
+// 1. Send data in background (fire-and-forget so WhatsApp opens without popup blocking)
+fetch('https://kumaon-travels-api.onrender.com/api/bookings', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(payload)
+}).catch((err) => console.warn("Backend offline, continuing to WhatsApp:", err));
+
+// 2. Open WhatsApp immediately on user click
+window.open(whatsappUrl, '_blank');
+
+// 3. Reset button UI
+if (submitBtn) {
+  submitBtn.innerHTML = originalText;
+  submitBtn.disabled = false;
+}
 }
   </script>
 
